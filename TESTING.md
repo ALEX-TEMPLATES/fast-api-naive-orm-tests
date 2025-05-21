@@ -46,9 +46,12 @@ src/
 В файл `pyproject.toml` добавьте секцию:
 ```toml
 [tool.pytest.ini_options]
+minversion = "6.0"
 testpaths = ["src/tests"]
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope ="session"
 asyncio_mode = "auto"
-addopts = "--cov=src/app --cov-report=term-missing"
+addopts = "-ra -q" 
 markers = [
   "unit: unit tests",
   "integration: integration tests",
@@ -77,26 +80,17 @@ def load_env():
     # pytest-dotenv автоматически загрузит .env
     pass
 
-@pytest.fixture(scope="session")
-def event_loop():
-    import asyncio
-    loop = asyncio.new_event_loop()
-    yield loop
-    loop.close()
-
 @pytest.fixture
 def client():
     return TestClient(app)
 
-# ---- Unit DB: in-memory SQLite ----
+# ---- Unit DB: PostgreSQL (production-like) ----
 @pytest.fixture
-async def unit_db_session():
-    url = "sqlite+aiosqlite:///:memory:"
-    engine = create_async_engine(url, echo=False)
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+async def unit_db_session(run_migrations):
+    """Использует тестовую Postgres и применяет все миграции один раз."""
+    engine = create_async_engine(settings.DATABASE_URL, echo=False)
     AsyncSessionLocal = sessionmaker(
-        engine, class_=AsyncSession, expire_on_commit=False
+        bind=engine, class_=AsyncSession, expire_on_commit=False
     )
     session = AsyncSessionLocal()
     yield session
