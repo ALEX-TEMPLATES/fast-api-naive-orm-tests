@@ -12,20 +12,25 @@
     python -m venv .venv
     ```
 2.  **Активируйте виртуальное окружение**:
-    -   Windows (Git Bash/PowerShell):
+    -   Windows (Git Bash):
         ```bash
         source .venv/Scripts/activate
+        ```
+    -   Windows (PowerShell):
+        ```powershell
+        .\.venv\Scripts\Activate.ps1
         ```
     -   Linux/macOS:
         ```bash
         source .venv/bin/activate
         ```
-3.  **Инициализируйте `uv`** (если используете `uv` как пакетный менеджер):
+3.  **Скопируйте `.env.example` в `.env`** и заполните необходимые переменные окружения.
+4.  **Инициализируйте `uv`** (если используете `uv` как пакетный менеджер):
     ```bash
     uv init
     ```
-4.  **Отредактируйте `pyproject.toml`**, добавив необходимые зависимости в секцию `[project.dependencies]`.
-5.  **Установите зависимости** (если используете `uv`):
+5.  **Отредактируйте `pyproject.toml`**, добавив необходимые зависимости в секции `[project]` в ключ `dependencies`.
+6.  **Установите зависимости** (если используете `uv`):
     ```bash
     uv sync
     ```

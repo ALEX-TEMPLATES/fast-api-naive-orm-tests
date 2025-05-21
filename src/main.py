@@ -5,7 +5,7 @@ from app.api import api_router
 # Инициализация FastAPI приложения
 app = FastAPI(
     title="Fast API Template",
-    description="Шаблон FastAPI приложения без ORM",
+    description="Шаблон FastAPI приложения с ORM",
     version="0.1.0",
 )
 

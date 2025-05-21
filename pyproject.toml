@@ -1,5 +1,5 @@
 [project]
-name = "fast-api-naive-no-orm"
+name = "fast-api-naive-orm-tests"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"

@@ -1,6 +1,6 @@
 # FastAPI Naive
 
-Fast API application template with a clean layered architecture.
+FastAPI application template with a clean layered architecture.
 
 ## Architecture
 
@@ -27,6 +27,7 @@ graph TD
     class D dao;
     class SC schema;
     class DTO dto;
+```
 ```
 
 ### Layer Description
