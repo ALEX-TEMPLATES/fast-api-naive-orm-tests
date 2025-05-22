@@ -61,9 +61,11 @@ env_files = [".env"]
 
 ## 4. Общий `conftest.py`
 
-Создайте файл `src/tests/conftest.py` со следующими фикстурами:
-
+Создайте файл `src/conftest.py` со следующим содержимым:
 ```python
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
